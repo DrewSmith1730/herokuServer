@@ -1,38 +1,64 @@
-const { readFileSync } = require("fs");
-const { createServer } = require("https");
-const { Server } = require("socket.io");
+'use strict';
 
+const express = require('express');
+const socketIO = require('socket.io');
 
-const secureServer = createServer({
-    key: readFileSync("ssl/server.key.pem"),
-    cert: readFileSync("ssl/server.pem")
-    ca: [
-            readFileSync("ssl/client.pem")
-    ]
+const PORT = process.env.PORT || 3000;
+const INDEX = '/index.html';
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(server);
+
+io.on('connection', (socket) => {
+  console.log('Client connected');
+  socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
-const io = new secureServer(https, {
-cors: {
-    origin: "https://cs275PokerApp.com"
-}
-});
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 
-io.on("connection", (socket) => {
+
+//===============================================//
+
+
+
+//const { readFileSync } = require("fs");
+//const { createServer } = require("https");
+//const { Server } = require("socket.io");
+
+
+//const secureServer = createServer({
+//    key: readFileSync("ssl/server.key.pem"),
+//    cert: readFileSync("ssl/server.pem")
+//    ca: [
+//            readFileSync("ssl/client.pem")
+//    ]
+//});
+
+//const io = new secureServer(https, {
+//cors: {
+  //  origin: "https://cs275PokerApp.com"
+//}
+//});
+
+//io.on("connection", (socket) => {
     // how to add to players list
-    console.log("server is running");
-    console.log(socket.id);
+//    console.log("server is running");
+//    console.log(socket.id);
     
     // all socket.on things happen inside the connection so it only can try to do anything
     // when the server is connected
-    socket.on('disconnect', function(data){
-            connections.splice(connections.indexOf(socket), 1);
-            console.log('Disconnect: %s sockets are connected', connections.length);
-    });
+//    socket.on('disconnect', function(data){
+//            connections.splice(connections.indexOf(socket), 1);
+//            console.log('Disconnect: %s sockets are connected', connections.length);
+//    });
     
-    socket.on('NodeJS Server Port', function(data) {
-        console.log(data);
-        io.sockets.emit('iOS Client Port', {msg: 'Hi iOS Client!'});
-    });
+//    socket.on('NodeJS Server Port', function(data) {
+//        console.log(data);
+//        io.sockets.emit('iOS Client Port', {msg: 'Hi iOS Client!'});
+//    });
     
     // test function for later after testing server its self
 //    socket.on('Create Game', function(data) {
@@ -48,7 +74,7 @@ io.on("connection", (socket) => {
 });
 
 
-httpServer.listen(3000);
+//httpServer.listen(3000);
 
 
 /*
