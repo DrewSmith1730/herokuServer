@@ -585,7 +585,9 @@ io.sockets.on('connection', (socket) => {
             
         });
         socket.on('Join Game', function(data) {
-            
+            for (let i = 0; i < connections.length; i++){
+                console.log(connections[i];
+            }
             //onlything needed in start game is the call to the function start game
             
             //round1 = new Round(100,100);
