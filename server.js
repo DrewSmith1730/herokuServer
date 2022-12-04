@@ -9,18 +9,18 @@ const INDEX = '/index.html';
 
 const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+  .listen(PORT, () => console.log('Listening on ${PORT}'));
 var server = require('http').createServer(app);
 
 const io = require('socket.io')(server, {/* options */});
 // const io = socketIO(server, {/* options */});
-console.log("Before Connection");
+console.log('Before Connection');
 
 Io.on(‘connection’, (ws) => {
 
     console.log(‘Client connected’);
 
-    io.on(‘close’, () => console.log(‘Client disconnected’));
+    io.on('close', () => console.log('Client disconnected'));
 
 });
 
