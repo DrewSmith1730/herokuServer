@@ -10,7 +10,7 @@ const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-var server = require('http').createServer(app);
+var server = createServer(app);
 
 // const io = socketIO(server);
 const io = require('socket.io')(server);
