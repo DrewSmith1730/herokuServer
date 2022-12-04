@@ -13,6 +13,7 @@ const app = express()
 var server = require('http').createServer(app);
 
 const io = socketIO(server, {/* options */});
+console.log("Before Connection")
 
 io.sockets.on('connection', function(socket) {
     connections.push(socket);
