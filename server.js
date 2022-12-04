@@ -10,7 +10,7 @@ const server = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = socketIO(server, {/* options */});
+const io = socketIO(server);
 
 io.on('connection', (ws) => {
   console.log('Client connected');
