@@ -24,10 +24,15 @@ io.sockets.on('connection', (socket) => {
   console.log(socket);
   io.on('close', () => console.log('Client disconnected'));
     
-    socket.on('disconnect', function(data){
-            connections.splice(connections.indexOf(socket), 1);
-            console.log('Disconnect: %s sockets are connected', connections.length);
-    });
+  socket.on('Heroku Server Testing', function(data) {
+    console.log(data);
+    console.log("Here at Heroku Server Testing");
+  });
+    
+  socket.on('disconnect', function(data){
+    connections.splice(connections.indexOf(socket), 1);
+    console.log('Disconnect: %s sockets are connected', connections.length);
+  });
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
