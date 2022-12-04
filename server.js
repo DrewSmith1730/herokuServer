@@ -6,14 +6,14 @@ const express = require('express');
 const PORT = process.env.PORT;
 const INDEX = '/index.html';
 
-const app = express()
+const server = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-var server = createServer(app);
-
 // const io = socketIO(server);
 const io = require('socket.io')(server);
+
+console.log("before connection");
 
 io.sockets.on('connection', (socket) => {
   console.log('Client connected');
