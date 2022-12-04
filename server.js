@@ -16,7 +16,7 @@ const io = require('socket.io')(server, {/* options */});
 // const io = socketIO(server, {/* options */});
 console.log('Before Connection');
 
-Io.on(‘connection’, (ws) => {
+io.on(‘connection’, (ws) => {
 
     console.log(‘Client connected’);
 
