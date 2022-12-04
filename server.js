@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+var connections = [];
+
 // const socketIO = require('socket.io');
 
 const PORT = process.env.PORT;
@@ -17,6 +19,9 @@ console.log("before connection");
 
 io.sockets.on('connection', (socket) => {
   console.log('Client connected');
+  connections.push(socket);
+  console.log(connections);
+  console.log(socket);
   io.on('close', () => console.log('Client disconnected'));
 });
 
