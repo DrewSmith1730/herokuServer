@@ -18,7 +18,7 @@ console.log('Before Connection');
 
 io.on(‘connection’, (ws) => {
 
-    console.log(‘Client connected’);
+    console.log('Client connected');
 
     io.on('close', () => console.log('Client disconnected'));
 
