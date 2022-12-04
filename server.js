@@ -12,7 +12,7 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (ws) => {
+io.sockets.on('connection', (ws) => {
   console.log('Client connected');
   io.on('close', () => console.log('Client disconnected'));
 });
