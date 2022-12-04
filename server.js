@@ -2,7 +2,7 @@
 
 const express = require('express');
 
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
 
 const PORT = process.env.PORT;
 const INDEX = '/index.html';
@@ -12,7 +12,8 @@ const app = express()
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 var server = require('http').createServer(app);
 
-const io = socketIO(server, {/* options */});
+const io = require('socket.io')(server, {/* options */});
+// const io = socketIO(server, {/* options */});
 console.log("Before Connection");
 
 io.sockets.on('connection', function(socket) {
