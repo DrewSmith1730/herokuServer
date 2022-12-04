@@ -558,21 +558,25 @@ io.sockets.on('connection', (socket) => {
             console.log("AT CREATE GAME");
             console.log(data[2]);
             let stakeInt = 0;
+            let defaultStack = 0;
             switch(data[2]){
                     case "Low":
                     stakeInt = 0;
+                    defaultStack = 200;
                     break;
                     case "Medium":
                     stakeInt = 1;
+                    defaultStack = 400;
                     break;
                     case "High":
                     stakeInt = 2;
+                    defaultStack = 1000;
                     break;
             }
             
             
             round1 = new Round(data[0],stakeInt);
-            round1.addPlayer(new Player(data[1], 100, socket.id));
+            round1.addPlayer(new Player(data[1], defaultStack, socket.id));
             gameList.push(round1);
             r = gameList[0];
             console.log("HERE");
@@ -584,7 +588,7 @@ io.sockets.on('connection', (socket) => {
             
             //onlything needed in start game is the call to the function start game
             
-            round1 = new Round(100,100);
+            //round1 = new Round(100,100);
             //gameList.push(round1);
             
             for (let i = 0; i < gameList.length; i++){
@@ -999,7 +1003,7 @@ function getPlayerInput(inputChoices, playerIndex, minRaiseAmt, maxRaiseAmt, cal
                     dic["Min Raise Amount"] = minRaiseAmt;
                     dic["Max Raise Amount"] = maxRaiseAmt;
                     dic["Call Amount"] = callAmt;
-                    io.to(r.allPlayers[0].socketID).emit("No Check Turn", dic);
+                    io.to(r.allPlayers[playerIndex].socketID).emit("No Check Turn", dic);
                     console.log(playerIndex);
                     
                     console.log("Last");
